@@ -64,7 +64,7 @@ namespace Esercitazione.WPF.ViewModels
         public GiftCardRowViewModel()
         {
             DeleteGiftCardCommand = new RelayCommand(() => ExecuteDelete());
-            UpdateGiftCardCommand = new RelayCommand(() => ExecuteUpdate());
+            UpdateGiftCardCommand = new RelayCommand(() => ExecuteUpdate(), () => CanExecuteUpdate());
         }
 
         public GiftCardRowViewModel(GiftCard giftCard) : this()
@@ -87,6 +87,10 @@ namespace Esercitazione.WPF.ViewModels
                 Buttons = MessageBoxButton.YesNo,
                 Callback = OnMessageBoxResultReceived
             });
+        }
+        private bool CanExecuteUpdate()
+        {
+            return DataScadenza > DateTime.Now;
         }
 
         private void ExecuteUpdate()
